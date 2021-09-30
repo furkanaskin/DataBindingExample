@@ -54,14 +54,27 @@ class MainViewModel : ViewModel() {
         Log.v("FormSample", "Age : ${formValues?.age}")
     }
 
-    fun validateForm() {
+    private fun validateForm() {
         val formValues = formViewStateLiveData.value
-        if (formValues?.name?.contains(Regex("[^A-Za-z]")).orFalse())
-            setFormError(
+        when {
+            formValues?.name?.contains(Regex("[^A-Za-z]")).orFalse() -> setFormError(
                 FormValidationErrorModel(
                     FormValidationErrorTags.INVALID_NAME,
                     "Invalid name"
                 )
             )
+            formValues?.surname?.contains(Regex("[^A-Za-z]")).orFalse() -> setFormError(
+                FormValidationErrorModel(
+                    FormValidationErrorTags.INVALID_NAME,
+                    "Invalid surname"
+                )
+            )
+            formValues?.age?.toIntOrNull() ?: 0 > 0 -> setFormError(
+                FormValidationErrorModel(
+                    FormValidationErrorTags.INVALID_NAME,
+                    "Invalid age"
+                )
+            )
+        }
     }
 }
