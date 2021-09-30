@@ -6,35 +6,112 @@
     <data>
 
         <variable
-            name="emotions"
-            type="com.faskn.databindingexample.model.Emotions" />
+            name="formViewState"
+            type="com.faskn.databindingexample.MainFormViewState" />
 
+        <import type="com.faskn.databindingexample.model.FormValidationErrorTags" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        tools:context=".activity.MainActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivEmotionDrawable"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_centerInParent="true"
-            app:setDrawable="@{emotions.drawableID}"/>
-
-        <TextView
-            android:id="@+id/tvEmotionName"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHeader"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivEmotionDrawable"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="@{emotions.emotionName}"
-            app:setTextColor="@{emotions.drawableColor}"
-            android:textStyle="bold"/>
+            android:layout_margin="16dp"
+            android:text="@string/sample_form"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+            tools:context=".MainActivity">
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextName"
+                    setFormValidationError="@{formViewState.formErrors}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/white"
+                    android:tag="@{FormValidationErrorTags.INVALID_NAME.name()}"
+                    android:text="@={formViewState.name}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/surname">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextSurname"
+                    setFormValidationError="@{formViewState.formErrors}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/white"
+                    android:tag="@{FormValidationErrorTags.INVALID_SURNAME.name()}"
+                    android:text="@={formViewState.surname}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/age">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextAge"
+                    setFormValidationError="@{formViewState.formErrors}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/white"
+                    android:inputType="number"
+                    android:tag="@{FormValidationErrorTags.INVALID_AGE.name()}"
+                    android:text="@={formViewState.age}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/colorPurple"
+            android:enabled="@{formViewState.continueButtonEnabled}"
+            android:text="@string/Continue"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutCompat"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
