@@ -37,6 +37,7 @@ data class MainFormViewState(
         notifyPropertyChanged(BR.continueButtonEnabled)
         return name.isEmpty().not() &&
                 surname.isEmpty().not() &&
-                age.isEmpty().not()
+                age.isEmpty().not() &&
+                formErrors.isEmpty()
     }
 }

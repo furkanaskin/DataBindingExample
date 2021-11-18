@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/colorPurple"
+            android:background="@drawable/bg_material_button"
             android:enabled="@{formViewState.continueButtonEnabled}"
             android:text="@string/Continue"
             android:textAllCaps="false"

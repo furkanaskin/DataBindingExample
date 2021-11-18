@@ -21,7 +21,7 @@ class MainViewModel : ViewModel() {
         setFormViewStateLiveData(MainFormViewState())
     }
 
-    fun setFormError(error: FormValidationErrorModel) {
+    private fun setFormError(error: FormValidationErrorModel) {
         formViewStateLiveData.value?.let { viewState ->
             val errors = viewState.formErrors.toMutableList().apply {
                 if (this.contains(error).not()) {
@@ -65,13 +65,13 @@ class MainViewModel : ViewModel() {
             )
             formValues?.surname?.contains(Regex("[^A-Za-z]")).orFalse() -> setFormError(
                 FormValidationErrorModel(
-                    FormValidationErrorTags.INVALID_NAME,
+                    FormValidationErrorTags.INVALID_SURNAME,
                     "Invalid surname"
                 )
             )
-            formValues?.age?.toIntOrNull() ?: 0 > 0 -> setFormError(
+            formValues?.age?.toIntOrNull() ?: 0 <= 0 -> setFormError(
                 FormValidationErrorModel(
-                    FormValidationErrorTags.INVALID_NAME,
+                    FormValidationErrorTags.INVALID_AGE,
                     "Invalid age"
                 )
             )
